@@ -14,6 +14,7 @@ array[NSQ] of var 0..maxl: x;
 array[NSQ] of var 0..maxl: y;
 
 array[NSQ] of var SQUARE: size;
+
 % calculate size of each square
 include "global_cardinality.mzn";
 constraint global_cardinality(size, [i | i in SQUARE], ncopy);
