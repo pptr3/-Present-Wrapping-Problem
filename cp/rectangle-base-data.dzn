@@ -1,7 +1,0 @@
-width = 9; height = 12;
-blobs_count = 5;
-blobs = [| 3, 3 % (width, height) per blob
-         | 2, 4
-         | 2, 8
-         | 3, 9
-         | 4, 12 |];
