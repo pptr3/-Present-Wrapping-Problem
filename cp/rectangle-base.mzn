@@ -1,35 +1,32 @@
-int: n; % number of blocks
-set of int: BLOCK = 1..n;
-int: m; % number of rectangle/offsets
-set of int: ROFF = 1..m;
-array[ROFF,1..4] of int: d; % defns
-array[BLOCK] of set of ROFF: shape;
-int: h; % width of river
-int: maxl; % maximum length of river
+include "globals.mzn";
 
-array[BLOCK] of var 0..maxl: x;
-array[BLOCK] of var 0..h: y;
+int: width; % paper width
+int: height; % paper height
+int: blobs_count; % how many blobs
+set of int: NPIECES = 1..blobs_count;
 
-var 0..maxl: l; % length of river used
+set of int: BLOBS_ARRAY = 1..blobs_count;
+array[BLOBS_ARRAY, 1..2] of int: blobs; % defns
 
-solve minimize l;
+% variables
+array[BLOBS_ARRAY, 1..2] of var int: origin;
 
-constraint forall(i in BLOCK)(forall(r in ROFF)
-  (r in shape[i] -> 
-  (x[i] + d[r,1] + d[r,3] <= l /\
-   y[i] + d[r,2] + d[r,4] <= h)));
 
-constraint forall(i,j in BLOCK where i < j)
-  (forall(r1,r2 in ROFF)
- (r1 in shape[i] /\ 
-  r2 in shape[j] -> 
-(x[i] + d[r1,1] + d[r1,3] <= x[j] + d[r2,1]
-                   \/
- x[j] + d[r2,1] + d[r2,3] <= x[i] + d[r1,1]
-                   \/
- y[i] + d[r1,2] + d[r1,4] <= y[j] + d[r2,2]
-                   \/
-y[j] + d[r2,2] + d[r2,4] <= y[i] + d[r1,2])
-   ));
+% origins domain constraints 
+constraint forall(i in BLOBS_ARRAY)
+                    ((origin[i,1] >= 0 /\ origin[i,1] < width) /\ (origin[i,2] >= 0 /\ origin[i,2] < height));
 
-output ["l = \(l);\nx = \(x);\ny = \(y)\n"];
+% non-overlap constraint
+constraint diffn(origin[..,1],origin[..,2], blobs[..,1], blobs[..,2]);
+
+
+% each piece must fit in the paper roll
+constraint forall(i in BLOBS_ARRAY)
+                  (((blobs[i,1] + origin[i,1]) <= width) /\ ((blobs[i,2] + origin[i,2]) <= height));
+
+% search
+ann:search_ann;
+search_ann = int_search(origin, first_fail, indomain_split);
+solve :: search_ann satisfy;
+
+output ["width = \(width);\n height = \(height);\n blobs_count = \(blobs_count)\n blobs= \(origin);\n"];
