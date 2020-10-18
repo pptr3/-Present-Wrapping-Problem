@@ -8,16 +8,22 @@ set of int: NPIECES = 1..blobs_count;
 set of int: BLOBS_ARRAY = 1..blobs_count;
 array[BLOBS_ARRAY, 1..2] of int: blobs; % defns
 
-% variables
+% variables: array coposed by pairs of (x, y) coordinates which are the starting point of the respsective blobs in blobs array
 array[BLOBS_ARRAY, 1..2] of var int: origin;
 
 
 % origins domain constraints 
 constraint forall(i in BLOBS_ARRAY)
-                    ((origin[i,1] >= 0 /\ origin[i,1] < width) /\ (origin[i,2] >= 0 /\ origin[i,2] < height));
+                    ((origin[i,1] >= 0 /\ origin[i,1] < width) /\
+                    (origin[i,2] >= 0 /\ origin[i,2] < height));
 
-% non-overlap constraint
-constraint diffn(origin[..,1],origin[..,2], blobs[..,1], blobs[..,2]);
+% non overlap constraint
+constraint forall(b1, b2 in BLOBS_ARRAY where b1 < b2) (
+                    (origin[b1,1] + blobs[b1,1] <= origin[b2,1]) \/
+                    (origin[b2,1] + blobs[b2,1] <= origin[b1,1]) \/
+                    (origin[b1,2] + blobs[b1,2] <= origin[b2,2]) \/
+                    (origin[b2,2] + blobs[b2,2] <= origin[b1,2]));
+                    
 
 
 % each piece must fit in the paper roll
