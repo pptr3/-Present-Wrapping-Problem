@@ -12,7 +12,7 @@ array[BLOBS_ARRAY, 1..2] of int: blobs; % defns
 array[BLOBS_ARRAY, 1..2] of var int: origin;
 
 
-% origins domain constraints 
+% The domain of the origins should be [0, width[ and [0, height[
 constraint forall(i in BLOBS_ARRAY)
                     ((origin[i,1] >= 0 /\ origin[i,1] < width) /\
                     (origin[i,2] >= 0 /\ origin[i,2] < height));
