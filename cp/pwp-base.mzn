@@ -35,4 +35,4 @@ ann:search_ann;
 search_ann = int_search(origin, first_fail, indomain_split);
 solve :: search_ann satisfy;
 
-output ["width = \(width);\n height = \(height);\n blobs_count = \(blobs_count)\n blobs= \(origin);\n"];
+output ["width = \(width);\n height = \(height);\n blobs = \(blobs)\n origin_sol= \(origin);\n"];
