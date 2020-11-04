@@ -1,0 +1,24 @@
+- from 8x8 to 17x17 is ok
+- 18x18 NO
+- 19x19 ok
+- 20x20 NO
+- 21x21 NO
+- 22x22 ok
+- 23x23 NO
+- 24x24 ok
+- 25x25 ok
+- 26x26 NO
+- 27x27 si
+- 28x28 si
+- 29x29 NO
+- 30x30 si
+- 31x31 si
+- 32x32 NO
+- 33x33 NO
+- 34x34 si
+- 35x35 NO
+- 36x36 NO
+- 37x37 NO
+- 38x38 si
+- 39x39 NO
+- 40x40 si

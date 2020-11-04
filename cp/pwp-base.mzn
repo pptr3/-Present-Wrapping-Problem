@@ -17,15 +17,15 @@ constraint forall(i in BLOBS_ARRAY)
                     (origin[i,2] >= 0 /\ origin[i,2] < height));
 
 % non overlap constraint
-constraint forall(b1, b2 in BLOBS_ARRAY where b1 < b2) (
-                    (origin[b1,1] + blobs[b1,1] <= origin[b2,1]) \/
-                    (origin[b2,1] + blobs[b2,1] <= origin[b1,1]) \/
-                    (origin[b1,2] + blobs[b1,2] <= origin[b2,2]) \/
-                    (origin[b2,2] + blobs[b2,2] <= origin[b1,2]));
+%constraint forall(b1, b2 in BLOBS_ARRAY where b1 < b2) (
+%                    (origin[b1,1] + blobs[b1,1] <= origin[b2,1]) \/
+%                    (origin[b2,1] + blobs[b2,1] <= origin[b1,1]) \/
+%                    (origin[b1,2] + blobs[b1,2] <= origin[b2,2]) \/
+%                    (origin[b2,2] + blobs[b2,2] <= origin[b1,2]));
                     
 
 % non-overlap constraint using global constrint
-%constraint diffn(origin[..,1],origin[..,2], blobs[..,1], blobs[..,2]);
+constraint diffn(origin[..,1],origin[..,2], blobs[..,1], blobs[..,2]);
 
 % each piece must fit in the paper roll
 constraint forall(i in BLOBS_ARRAY)
