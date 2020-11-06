@@ -34,9 +34,18 @@ constraint forall(i in BLOBS_ARRAY)
 % implied cumulative constraints 
 constraint cumulative(origin[..,1], blobs[..,1], blobs[..,2], height);
 constraint cumulative(origin[..,2], blobs[..,2], blobs[..,1], width);
-
+  
+% this constraint forces the first (biggest area object) to be placed into thefirst, bottom-left quadrant of the box
 constraint (origin[1,1] <= (width/2 - blobs[1,1]/2)) /\ (origin[1,2] <= (height/2 - blobs[1,2] / 2));
 
+% identical rectangle constraint
+constraint
+  forall(i in BLOBS_ARRAY)(
+    if(blobs[i, 1] == blobs[i + 1, 1] /\ blobs[i, 2] == blobs[i + 1, 2]) then (
+      origin[i, 1] < origin[i + 1, 1] \/ origin[i, 1] == origin[i + 1, 1] /\ origin[i, 2] < origin[i + 1, 2]
+    )
+    endif
+   );
 % search
 ann:search_ann;
 search_ann = int_search(origin, first_fail, indomain_split);
