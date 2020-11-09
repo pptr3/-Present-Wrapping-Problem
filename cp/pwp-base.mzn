@@ -7,7 +7,9 @@ int: blobs_count; % how many blobs
 set of int: BLOBS_ARRAY = 1..blobs_count;
 array[BLOBS_ARRAY, 1..2] of int: blobs; % defns
 
-% variables: array composed by pairs of (x, y) coordinates which are the starting point of the respsective blobs in blobs array
+% variables: array composed by pairs of (x, y) coordinates which are the starting point of the respsective blobs in blobs array. 
+% This is a variable so it is not itialized yet, is what we have to find.
+
 array[BLOBS_ARRAY, 1..2] of var int: origin;
 
 
@@ -42,8 +44,8 @@ constraint (origin[1,1] <= (width/2 - blobs[1,1]/2)) /\ (origin[1,2] <= (height/
 constraint
   forall(i in BLOBS_ARRAY)(
     if(blobs[i, 1] == blobs[i + 1, 1] /\ blobs[i, 2] == blobs[i + 1, 2]) then (
-      origin[i, 1] < origin[i + 1, 1] \/ origin[i, 1] == origin[i + 1, 1] /\ origin[i, 2] < origin[i + 1, 2]
-    )
+      (origin[i, 1] < origin[i + 1, 1]) \/ (origin[i, 1] == origin[i + 1, 1]) /\ (origin[i, 2] < origin[i + 1, 2])
+   )
     endif
    );
 % search

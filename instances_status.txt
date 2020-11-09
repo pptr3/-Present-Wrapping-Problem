@@ -56,6 +56,7 @@
 %%%mzn-stat: restarts=0
 %%%mzn-stat: peakDepth=84
 
+
 - 32x32
 NO SOL AFTER 1H
 
@@ -68,6 +69,10 @@ NO SOL AFTER 1H
 NO SOL AFTER 1H
 - 37x37
 NO SOL AFTER 1H
+
+
+
+
 - 39x39
 %%%mzn-stat: solveTime=154.985
 %%%mzn-stat: solutions=1
