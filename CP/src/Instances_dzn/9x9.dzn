@@ -1,0 +1,9 @@
+width = 9;
+height = 9;
+blobs_count = 5;
+blobs = [| 3, 3
+| 3, 4
+| 3, 5
+| 3, 6
+| 3, 9
+|];
